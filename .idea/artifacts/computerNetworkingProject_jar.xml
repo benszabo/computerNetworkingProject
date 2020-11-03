@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="computerNetworkingProject:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/computerNetworkingProject_jar</output-path>
+    <root id="archive" name="computerNetworkingProject.jar">
+      <element id="module-output" name="computerNetworkingProject" />
+    </root>
+  </artifact>
+</component>
