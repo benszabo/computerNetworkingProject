@@ -4,10 +4,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.regex.Pattern;
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -38,7 +35,7 @@ public class PongGame extends JFrame implements KeyListener, Runnable {
     public static void main(String[] args) {
         Toolkit tk = Toolkit.getDefaultToolkit();
         //main menu background check
-        image = tk.createImage("bkgrnd.png");
+        image = tk.getImage("bkgrnd.png");
         PongGame newT = new PongGame();
         newT.run();
     }
@@ -65,20 +62,20 @@ public class PongGame extends JFrame implements KeyListener, Runnable {
         //server creation
         if (keyCode == KeyEvent.VK_S) {
             //port address for dialog input
-            portAdd = JOptionPane.showInputDialog(null, "ex. 1024", "Enter server port:", 1);
+            portAdd = JOptionPane.showInputDialog(null, "ex. 1024", "Enter server port:", JOptionPane.INFORMATION_MESSAGE);
 
             //alert message
             if (portAdd != null) {
-                if (!isPort(portAdd)) {
-                    JOptionPane.showMessageDialog(null, "Enter port number as a right format!", "Error!", 1);
+                if (isPort(portAdd)) {
+                    JOptionPane.showMessageDialog(null, "Enter port number as a right format!", "Error!", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     //server player nickname input dialog
-                    servername = JOptionPane.showInputDialog(null, "Nick name:", "Enter server name:", 1);
+                    servername = JOptionPane.showInputDialog(null, "Nick name:", "Enter server name:", JOptionPane.INFORMATION_MESSAGE);
                     servername += "";
 
                     //alert message
                     if (servername.length() > 10 || servername.length() < 3 || servername.startsWith("null")) {
-                        JOptionPane.showMessageDialog(null, "Enter name as a right format!", "Error!", 1);
+                        JOptionPane.showMessageDialog(null, "Enter name as a right format!", "Error!", JOptionPane.INFORMATION_MESSAGE);
                     }
 
                     //server creation
@@ -96,27 +93,27 @@ public class PongGame extends JFrame implements KeyListener, Runnable {
         if (keyCode == KeyEvent.VK_C) {
 
             //dialog input for IP address
-            ipAdd = JOptionPane.showInputDialog(null, "ex. 127.0.0.1", "Enter server ip:", 1);
+            ipAdd = JOptionPane.showInputDialog(null, "ex. 127.0.0.1", "Enter server ip:", JOptionPane.INFORMATION_MESSAGE);
 
             if (ipAdd != null) {
                 //alert message
                 if (!isIPAddress(ipAdd)) {
-                    JOptionPane.showMessageDialog(null, "Enter ip number as a right format!", "Enter server ip:", 1);
+                    JOptionPane.showMessageDialog(null, "Enter ip number as a right format!", "Enter server ip:", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     //part number input dialog
-                    portAdd = JOptionPane.showInputDialog(null, "ex. 1024", "Enter server port number:", 1);
+                    portAdd = JOptionPane.showInputDialog(null, "ex. 1024", "Enter server port number:", JOptionPane.INFORMATION_MESSAGE);
 
                     //alert message
                     if (portAdd != null) {
-                        if (!isPort(portAdd)) {
-                            JOptionPane.showMessageDialog(null, "Enter port number as a right format!", "Error!:", 1);
+                        if (isPort(portAdd)) {
+                            JOptionPane.showMessageDialog(null, "Enter port number as a right format!", "Error!:", JOptionPane.INFORMATION_MESSAGE);
                         }
                         //dialog input for client nickname
                         else {
-                            clientname = JOptionPane.showInputDialog(null, "Nick name:", "Enter server name:", 1);
+                            clientname = JOptionPane.showInputDialog(null, "Nick name:", "Enter server name:", JOptionPane.INFORMATION_MESSAGE);
                             clientname += "";
                             if (clientname.length() > 10 || clientname.length() < 3 || clientname.startsWith("null")) {
-                                JOptionPane.showMessageDialog(null, "Enter name as a right format!", "Error!", 1);
+                                JOptionPane.showMessageDialog(null, "Enter name as a right format!", "Error!", JOptionPane.INFORMATION_MESSAGE);
                             }
                             //client start
                             else {
@@ -143,7 +140,7 @@ public class PongGame extends JFrame implements KeyListener, Runnable {
     //port type check
     private boolean isPort(String str) {
         Pattern pPattern = Pattern.compile("\\d{1,4}");
-        return pPattern.matcher(str).matches();
+        return !pPattern.matcher(str).matches();
     }
 
     //IP address type check

@@ -32,7 +32,7 @@ public class PongClient extends JFrame implements KeyListener, Runnable, WindowL
     //bar height
     private int playerH = 120;
     //player bar movement
-    private int mPLAYER = 5;
+    private int mPLAYER = 10;
 
     //server
     private static Socket clientSoc;
@@ -52,7 +52,6 @@ public class PongClient extends JFrame implements KeyListener, Runnable, WindowL
 
     //constructor
     public PongClient(String clientname, String portAdd, String ipAdd) {
-
         //players
         playerS = new PlayerServer();
         playerC = new PlayerClient(clientname);

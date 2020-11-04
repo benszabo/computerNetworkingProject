@@ -40,7 +40,7 @@ public class PongServer extends JFrame implements KeyListener, Runnable, WindowL
     //max score
     private int max_Score = 11;
     //player bar movement
-    private int mPLAYER = 5;
+    private int mPLAYER = 10;
     //restart check
     private boolean Restart = false;
     private boolean restartON = false;
@@ -102,9 +102,8 @@ public class PongServer extends JFrame implements KeyListener, Runnable, WindowL
                 boolean notchecked = true;
                 movB = new Thread(movingBALL);
                 while (true) {
-
                     //game status check
-                    if (playerS.getScoreP() >= max_Score || playerS.getScoreS() >= max_Score && Restart == false) {
+                    if (playerS.getScoreP() >= max_Score || playerS.getScoreS() >= max_Score && !Restart) {
                         if (playerS.getScoreS() > playerS.getScoreP()) {
                             playerS.setOmessage("Won               Loss-Play Again: Press any key || Exit: Esc|N");
                             playerS.setImessage("Won               Loss-Play again? ");
@@ -290,11 +289,11 @@ public class PongServer extends JFrame implements KeyListener, Runnable, WindowL
             playerDOWN();
             repaint();
         }
-        if (Restart == true) {
+        if (Restart) {
             restartON = true;
             playerS.setRestart(true);
         }
-        if (keycode == KeyEvent.VK_N || keycode == KeyEvent.VK_ESCAPE && Restart == true) {
+        if (keycode == KeyEvent.VK_N || keycode == KeyEvent.VK_ESCAPE && Restart) {
             try {
                 this.setVisible(false);
                 serverSoc.close();
