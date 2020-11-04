@@ -1,92 +1,93 @@
 import java.io.Serializable;
 
-public class PlayerServer implements Serializable{
+public class PlayerServer implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private String name;
-	private int	x, y;
-	private int ballx, bally;
-	private int scoreS = 0;
-	private int scoreP = 0;
-	private String imessage;
-	private String omessage;
-	private boolean restart = false;
-	public boolean isRestart() {
-		return restart;
-	}
+    private static final long serialVersionUID = 1L;
+    private String name;
+    private int x, y;
+    private int ballx, bally;
+    private int scoreS = 0;
+    private int scoreP = 0;
+    private String imessage = "";
+    private String omessage = "";
+    private boolean restart = false;
 
-	public void setRestart(boolean restart) {
-		this.restart = restart;
-	}
+    public boolean isRestart() {
+        return restart;
+    }
 
-	public PlayerServer(){
-		x = 50;
-		y = 200;
-		ballx = 380;
-		bally = 230;
-	}
-	
-	public String getName() {
-		return name;
-	}
+    public void setRestart(boolean restart) {
+        this.restart = restart;
+    }
 
-	public String getImessage() {
-		return imessage;
-	}
+    public PlayerServer() {
+        x = 50;
+        y = 200;
+        ballx = 380;
+        bally = 230;
+    }
 
-	public void setImessage(String imessage) {
-		this.imessage = imessage;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setOmessage(String omessage) {
-		this.omessage = omessage;
-	}
+    public String getImessage() {
+        return imessage;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setImessage(String imessage) {
+        this.imessage = imessage;
+    }
 
-	public int getX() {
-		return x;
-	}
+    public void setOmessage(String omessage) {
+        this.omessage = omessage;
+    }
 
-	public int getY() {
-		return y;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setY(int y) {
-		this.y = y;
-	}
+    public int getX() {
+        return x;
+    }
 
-	public int getBallx() {
-		return ballx;
-	}
+    public int getY() {
+        return y;
+    }
 
-	public void setBallx(int ballx) {
-		this.ballx = ballx;
-	}
+    public void setY(int y) {
+        this.y = y;
+    }
 
-	public int getBally() {
-		return bally;
-	}
+    public int getBallx() {
+        return ballx;
+    }
 
-	public void setBally(int bally) {
-		this.bally = bally;
-	}
+    public void setBallx(int ballx) {
+        this.ballx = ballx;
+    }
 
-	public int getScoreS() {
-		return scoreS;
-	}
+    public int getBally() {
+        return bally;
+    }
 
-	public void setScoreS(int scoreS) {
-		this.scoreS = scoreS;
-	}
+    public void setBally(int bally) {
+        this.bally = bally;
+    }
 
-	public int getScoreP() {
-		return scoreP;
-	}
+    public int getScoreS() {
+        return scoreS;
+    }
 
-	public void setScoreP(int scoreP) {
-		this.scoreP = scoreP;
-	}
+    public void setScoreS(int scoreS) {
+        this.scoreS = scoreS;
+    }
+
+    public int getScoreP() {
+        return scoreP;
+    }
+
+    public void setScoreP(int scoreP) {
+        this.scoreP = scoreP;
+    }
 }

@@ -1,21 +1,16 @@
 public class Ball extends Thread {
-
-    //xcoordinate of ball
+    //ball x coordinate
     private int x;
-
-    //ycoordinate of ball
+    //ball y coordinate
     private int y;
-
-    //xVelocity
+    //x velocity
     private double xv;
-
-    //yVelocity
+    //y velocity
     private double yv;
-
-    //ball size
+    //ball radius
     private int radius;
-    private int height;
-    private int width;
+    private int HEIGHT;
+    private int WIDTH;
 
     @Override
     public void run() {
@@ -36,16 +31,15 @@ public class Ball extends Thread {
         this.xv = xv;
         this.yv = yv;
         this.radius = radius;
-        this.width = WIDTH;
-        this.height = HEIGHT;
+        this.WIDTH = WIDTH;
+        this.HEIGHT = HEIGHT;
     }
-
 
     public void move() {
         //screen layer calibration
-        if (x + xv > (width - radius) - 7) {
+        if (x + xv > (WIDTH - radius) - 7) {
             //ball position set
-            x = (width - radius) - 7;
+            x = (WIDTH - radius) - 7;
             //ball velocity set
             xv = xv * -1;
         }
@@ -63,13 +57,14 @@ public class Ball extends Thread {
         }
 
         //screen layer calibration
-        if (y + yv > (height - radius) - 6)
+        if (y + yv > (HEIGHT - radius) - 6)
         {
-            y = (height - radius) - 6;
+            y = (HEIGHT - radius) - 6;
             yv = yv * -1;
         }
         x += xv;
         y += yv;
+
     }
 
     public int getX() {

@@ -16,19 +16,22 @@ import javax.swing.JFrame;
 public class PongClient extends JFrame implements KeyListener, Runnable, WindowListener {
 
     private static final long serialVersionUID = 1L;
-
     //frame
-    private static final String title = "ping-pong::client";
-    private static final int width = 800;
-    private static final int height = 460;
+    private static final String TITLE = "ping-pong::client";
+    //window width
+    private static final int WIDTH = 800;
+    //window height
+    private static final int HEIGHT = 460;
     boolean isRunning;
 
     //players
     private PlayerServer playerS;
     private PlayerClient playerC;
-    //bar size and movement
+    //bar width
     private int barR = 30;
+    //bar height
     private int playerH = 120;
+    //player bar movement
     private int mPLAYER = 5;
 
     //server
@@ -44,15 +47,16 @@ public class PongClient extends JFrame implements KeyListener, Runnable, WindowL
     private Font mFont = new Font("TimesRoman", Font.BOLD, 50);
     private Font nFont = new Font("TimesRoman", Font.BOLD, 32);
     private Font rFont = new Font("TimesRoman", Font.BOLD, 18);
+    //array for message split
     private String[] message;
 
     //constructor
-    public PongClient(String clientName, String portAdd, String ipAdd) {
+    public PongClient(String clientname, String portAdd, String ipAdd) {
 
         //players
         playerS = new PlayerServer();
-        playerC = new PlayerClient(clientName);
-        playerS.setName(clientName);
+        playerC = new PlayerClient(clientname);
+        playerS.setName(clientname);
 
         //socket
         this.ipAdd = ipAdd;
@@ -60,8 +64,8 @@ public class PongClient extends JFrame implements KeyListener, Runnable, WindowL
         this.isRunning = true;
 
         //frame
-        this.setTitle(title);
-        this.setSize(width, height);
+        this.setTitle(TITLE);
+        this.setSize(WIDTH, HEIGHT);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         addKeyListener(this);
@@ -69,6 +73,7 @@ public class PongClient extends JFrame implements KeyListener, Runnable, WindowL
 
     @Override
     public void run() {
+        //server socket
         try {
             System.out.println("Finding server...\nConnecting to " + ipAdd + ":" + portAdd);
             clientSoc = new Socket(ipAdd, portAdd);
@@ -76,17 +81,16 @@ public class PongClient extends JFrame implements KeyListener, Runnable, WindowL
 
             if (clientSoc.isConnected()) {
                 System.out.println("TEST");
-
                 while (true) {
+                    //stream creation
                     ObjectOutputStream sendObj = new ObjectOutputStream(clientSoc.getOutputStream());
                     sendObj.writeObject(playerC);
 
                     ObjectInputStream getObj = new ObjectInputStream(clientSoc.getInputStream());
                     playerS = (PlayerServer) getObj.readObject();
 
-                    // resets restart status for next game
+                    //reset restart status for next game
                     if (reset) {
-
                         if (countS > 5) {
                             playerC.restart = false;
                             reset = false;
@@ -105,31 +109,31 @@ public class PongClient extends JFrame implements KeyListener, Runnable, WindowL
     }
 
     private Image createImage() {
-        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage bufferedImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         g = bufferedImage.createGraphics();
 
         //table
         g.setColor(new Color(15, 9, 9));
-        g.fillRect(0, 0, width, height);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
 
         //lines
         g.setColor(Color.white);
-        g.fillRect(width / 2 - 5, 0, 5, height);
-        g.fillRect(width / 2 + 5, 0, 5, height);
+        g.fillRect(WIDTH / 2 - 5, 0, 5, HEIGHT);
+        g.fillRect(WIDTH / 2 + 5, 0, 5, HEIGHT);
 
         //score
         g.setColor(new Color(228, 38, 36));
         g.setFont(sFont);
-        g.drawString("" + playerS.getScoreS(), width / 2 - 60, 120);
-        g.drawString("" + playerS.getScoreP(), width / 2 + 15, 120);
+        g.drawString("" + playerS.getScoreS(), WIDTH / 2 - 60, 120);
+        g.drawString("" + playerS.getScoreP(), WIDTH / 2 + 15, 120);
 
-        //player names
+        //names
         g.setFont(nFont);
         g.setColor(Color.white);
-        g.drawString(playerS.getName(), width / 10, height - 20);
-        g.drawString(playerC.getName(), 600, height - 20);
+        g.drawString(playerS.getName(), WIDTH / 10, HEIGHT - 20);
+        g.drawString(playerC.getName(), 600, HEIGHT - 20);
 
-        //player bar
+        //players ball
         g.setColor(new Color(57, 181, 74));
         g.fillRect(playerS.getX(), playerS.getY(), barR, playerH);
         g.setColor(new Color(57, 181, 74));
@@ -141,17 +145,17 @@ public class PongClient extends JFrame implements KeyListener, Runnable, WindowL
         g.setColor(new Color(228, 38, 36));
         g.fillOval(playerS.getBallx() + 5, playerS.getBally() + 5, 45 - 10, 45 - 10);
 
-        //message split
+        //message
         message = playerS.getImessage().split("-");
         g.setFont(mFont);
         g.setColor(Color.white);
         if (message.length != 0) {
-            g.drawString(message[0], width / 4 - 31, height / 2 + 38);
+            g.drawString(message[0], WIDTH / 4 - 31, HEIGHT / 2 + 38);
             if (message.length > 1) {
                 if (message[1].length() > 6) {
                     g.setFont(rFont);
                     g.setColor(new Color(228, 38, 36));
-                    g.drawString(message[1], width / 4 - 31, height / 2 + 100);
+                    g.drawString(message[1], WIDTH / 4 - 31, HEIGHT / 2 + 100);
                 }
             }
         }
@@ -163,20 +167,21 @@ public class PongClient extends JFrame implements KeyListener, Runnable, WindowL
         playerC.ok = true;
     }
 
-    //moves bar upward
+    //upward bar movement
     public void playerUP() {
         if (playerC.getY() - mPLAYER > playerH / 2 - 10) {
             playerC.setY(playerC.getY() - mPLAYER);
         }
     }
 
-    //moves bar downward
+    //downward bar movement
     public void playerDOWN() {
-        if (playerC.getY() + mPLAYER < height - playerH - 30) {
+        if (playerC.getY() + mPLAYER < HEIGHT - playerH - 30) {
             playerC.setY(playerC.getY() + mPLAYER);
         }
     }
 
+    //key listener
     @Override
     public void keyPressed(KeyEvent arg0) {
         int keycode = arg0.getKeyCode();
