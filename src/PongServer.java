@@ -304,7 +304,6 @@ public class PongServer extends JFrame implements KeyListener, Runnable, WindowL
         }
     }
 
-
     @SuppressWarnings("deprecation")
     @Override
     public void windowClosing(WindowEvent arg0) {
