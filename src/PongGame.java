@@ -4,7 +4,10 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.util.regex.Pattern;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -35,7 +38,7 @@ public class PongGame extends JFrame implements KeyListener, Runnable {
     public static void main(String[] args) {
         Toolkit tk = Toolkit.getDefaultToolkit();
         //main menu background check
-        image = tk.getImage("bkgrnd.png");
+        image = tk.getImage(PongGame.class.getResource("/images/bkgrnd.png"));
         PongGame newT = new PongGame();
         newT.run();
     }
